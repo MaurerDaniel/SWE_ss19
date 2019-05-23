@@ -1,0 +1,132 @@
+﻿<Page    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MvvmLight2.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:ViewModel="using:MvvmLight2.ViewModel"
+    x:Class="MvvmLight2.View.FotographerListView"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding FotographerList, Source={StaticResource Locator}}">
+
+
+
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                <GradientStop Color="LightGray"
+                              Offset="0" />
+                <GradientStop Color="#FFFFFF"
+                              Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="3.75*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button Content="Back" 
+                    Margin="10"
+                    Padding="20,5,20,5"
+                    HorizontalContentAlignment="Center"
+                    BorderBrush="Black" BorderThickness="1" 
+                    Click="GoBackButtonClick"/>
+            <TextBlock Text="{Binding Test}"/>
+        </StackPanel>
+        <ListView Grid.Row="1" 
+                  Grid.RowSpan="2" x:Name="lvIPTC"
+                          IsItemClickEnabled="False"
+                          Background="#EEEEEE"
+                  SelectedItem="{Binding SelectedFotographer, Mode=TwoWay}"
+                  ItemsSource="{ Binding FotographerModelList}"
+                  Margin="15">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ID}" 
+                                   MinWidth="50" HorizontalAlignment="Center" 
+                                   Margin="5"/>
+                        <TextBlock Text="{Binding Name}" 
+                                   MinWidth="100" HorizontalAlignment="Center" 
+                                   Margin="5"/>
+                        <TextBlock Text="{Binding Surname}"  
+                                   MinWidth="100" HorizontalAlignment="Center" 
+                                   Margin="5"/>
+                        <TextBlock Text="{Binding Birthday}"  
+                                   MinWidth="170" HorizontalAlignment="Center" 
+                                   Margin="5"/>
+                        <TextBlock Text="{Binding Notes}"  
+                                   MinWidth="300" HorizontalAlignment="Center" 
+                                   Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Text="ID:" Margin="5"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Text="Vorname:" Margin="5"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" 
+                       Text="Nachname:" Margin="5"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" 
+                       Text="Geburtsdatum:" Margin="5"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" 
+                       Text="Notiz:" Margin="5"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False"
+                     Text="{Binding SelectedFotographer.ID, Mode=TwoWay}"
+                     Margin="5"/>
+            <TextBox Grid.Row="1" Grid.Column="1"
+                     Text="{Binding SelectedFotographer.Name, Mode=TwoWay}"
+                     Margin="5"/>
+            <TextBox Grid.Row="2" Grid.Column="1"
+                     Text="{Binding SelectedFotographer.Surname, Mode=TwoWay}"
+                     Margin="5"/>
+            <TextBox Grid.Row="3" Grid.Column="1"
+                     Text="{Binding SelectedFotographer.Birthday, Mode=TwoWay}"
+                     Margin="5"/>
+            <TextBox Grid.Row="4" Grid.Column="1"
+                     Text="{Binding SelectedFotographer.Notes, Mode=TwoWay}"
+                     Margin="5"
+                       MinHeight="100"/>
+
+            <Button Grid.Row="5" Content="Create New" 
+                    Command="{ Binding CreateNewCommand, Mode=OneWay}"/>
+            <Button Grid.Row="5" Grid.Column="1" Content="Save Edits"
+                    Command="{Binding EditExistCommand, Mode=OneWay}"/>
+        </Grid>
+        <!--<ListView x:Name="lvImages" 
+                  Grid.Row="2" Grid.ColumnSpan="2"
+                  >
+            <StackPanel Orientation="Horizontal" 
+                                BorderBrush="Black" 
+                                BorderThickness="1">
+                <TextBlock Text="Label" Margin="5"/>
+                <TextBlock Text="Content" Margin="5"/>
+            </StackPanel>
+        </ListView>-->
+    </Grid>
+</Page>
